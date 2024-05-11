@@ -15,7 +15,7 @@ public class SimpleTimeSeriesFixer : ITimeSeriesFiller
         var sign = 1;
         for (int i = 1; i < dayDifference + 1; i++)
         {
-            var value = coef0 + coef1 * i;  //  + (decimal)variance * sign
+            var value = coef0 + coef1 * i + (decimal)variance * sign;
             sign *= -1;
             var date = leftEntry.Date.AddDays(i);
             entries.Insert(index + i, new(date, value));
@@ -60,7 +60,7 @@ public class SimpleTimeSeriesFixer : ITimeSeriesFiller
             value += Math.Pow(mean - (double)ts[index - i].Value, 2);
             cnt++;
         }
-        return value / (cnt - 1);
+        return Math.Sqrt(value / (cnt - 1));
     }
 
     private double CountMean(List<TimeSeriesEntry> ts, int index)

@@ -5,7 +5,7 @@ namespace TimeSeriesCommon;
 public class TimeSeriesLoader
 {
     private const string outputSheetName = "output";
-    private const string OutputPath = "C:\\Users\\Admin\\source\\repos\\TimeSeriesFixer\\TimeSeriesFixer\\output.xlsx";
+    private const string OutputPath = "C:\\Users\\tima3\\Source\\Repos\\TimeSeriesFixer\\output.xlsx";
     public static async Task<List<TimeSeriesEntry>> LoadTimeSeries(FileInfo inputFile, bool hasHeaders)
     {
         using var package = new ExcelPackage(inputFile);
@@ -42,7 +42,7 @@ public class TimeSeriesLoader
 
         using var package = new ExcelPackage(outputFile);
         var ws = package.Workbook.Worksheets.Add(outputSheetName);
-        var range = ws.Cells["A2"].LoadFromCollection(entries, hasHeaders);
+        var range = ws.Cells["A1"].LoadFromCollection(entries, hasHeaders);
         range.AutoFitColumns();
         await package.SaveAsync();
     }
